@@ -10,6 +10,7 @@ personal fork of surf with the following features
   > keeps track of all the url's you visit and shows them in the url menu ordered by frequency
   > map MOD + SHIFT + U/Y to scroll horizontally
   > remap MOD + U/D to page up/down
+  > copy/paste to/from clipboard, not primary selection
 
 
 surf - simple webkit-based browser
