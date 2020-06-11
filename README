@@ -1,3 +1,10 @@
+personal fork of surf with the following features
+
+  > -l option to set the window class
+
+
+
+
 surf - simple webkit-based browser
 ==================================
 surf is a simple Web browser based on WebKit/GTK+.

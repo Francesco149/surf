@@ -252,6 +252,7 @@ static const char *useragent;
 static Parameter *curconfig;
 static int modparams[ParameterLast];
 static int pipein[2], pipeout[2];
+static char *windowclass = "Surf";
 char *argv0;
 
 static ParamName loadtransient[] = {
@@ -1418,7 +1419,7 @@ createwindow(Client *c)
 		w = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 		wmstr = g_path_get_basename(argv0);
-		gtk_window_set_wmclass(GTK_WINDOW(w), wmstr, "Surf");
+		gtk_window_set_wmclass(GTK_WINDOW(w), wmstr, windowclass);
 		g_free(wmstr);
 
 		wmstr = g_strdup_printf("%s[%lu]", "Surf", c->pageid);
@@ -2041,6 +2042,9 @@ main(int argc, char *argv[])
 	case 'K':
 		defconfig[KioskMode].val.i = 1;
 		defconfig[KioskMode].prio = 2;
+		break;
+	case 'l':
+		windowclass = EARGF(usage());
 		break;
 	case 'm':
 		defconfig[Style].val.i = 0;
