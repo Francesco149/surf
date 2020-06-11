@@ -156,6 +156,7 @@ static const char *geturi(Client *c);
 static void setatom(Client *c, int a, const char *v);
 static const char *getatom(Client *c, int a);
 static void updatetitle(Client *c);
+static void updatehistory(Client* c, const char *uri);
 static void gettogglestats(Client *c);
 static void getpagestats(Client *c);
 static WebKitCookieAcceptPolicy cookiepolicy_get(void);
@@ -253,6 +254,7 @@ static Parameter *curconfig;
 static int modparams[ParameterLast];
 static int pipein[2], pipeout[2];
 static char *windowclass = "Surf";
+static char *historyfile;
 char *argv0;
 
 static ParamName loadtransient[] = {
@@ -339,6 +341,7 @@ setup(void)
 	/* dirs and files */
 	cookiefile = buildfile(cookiefile);
 	scriptfile = buildfile(scriptfile);
+	historyfile = buildfile(HISTORY_FILE);
 	cachedir   = buildpath(cachedir);
 	certdir    = buildpath(certdir);
 
@@ -651,6 +654,33 @@ updatetitle(Client *c)
 	} else {
 		gtk_window_set_title(GTK_WINDOW(c->win), name);
 	}
+}
+
+static int g_checkerr(GError** error) {
+	if (*error) {
+		g_printerr("%s\n", (*error)->message);
+		g_clear_error(error);
+		return 1;
+	}
+	return 0;
+}
+
+void
+updatehistory(Client *c, const char *uri)
+{
+	const char *name = c->overtitle ? c->overtitle :
+	                   c->title ? c->title : "";
+	GError *error;
+	GFile *file = g_file_new_for_path(historyfile);
+	GFileOutputStream *stream = g_file_append_to(file, G_FILE_CREATE_NONE, 0, &error);
+	if (!g_checkerr(&error)) {
+		gchar* s = g_strconcat(". ", uri, " ", name, "\n", 0);
+		g_output_stream_write(G_OUTPUT_STREAM(stream), s, strlen(s), 0, &error);
+		g_checkerr(&error);
+		g_free(s);
+	}
+	g_object_unref(stream);
+	g_object_unref(file);
 }
 
 void
@@ -1496,6 +1526,7 @@ loadchanged(WebKitWebView *v, WebKitLoadEvent e, Client *c)
 		    enablescrollbars ? "auto" : "hidden");
 		*/
 		runscript(c);
+		updatehistory(c, uri);
 		break;
 	}
 	updatetitle(c);
