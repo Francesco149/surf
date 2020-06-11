@@ -2,6 +2,7 @@ personal fork of surf with the following features
 
   > -l option to set the window class
   > no default font size set (setting it causes buggy font sizing)
+  > gpu acceleration always enabled (makes browsing smoother)
 
 
 
