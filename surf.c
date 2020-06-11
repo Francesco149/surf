@@ -560,7 +560,17 @@ loaduri(Client *c, const Arg *a)
 			url = g_strdup_printf("file://%s", path);
 			free(path);
 		} else {
-			url = g_strdup_printf("http://%s", uri);
+			regex_t urlregex;
+			int urlcheck;
+			/* matches anything that looks like a url */
+			urlcheck = regcomp(&urlregex, "^[[:alnum:]]+[.][[:alnum:].]+[^[:space:]]*$", REG_EXTENDED);
+			urlcheck = regexec(&urlregex, uri, 0, 0, 0);
+			if (!urlcheck) {
+				url = g_strdup_printf("http://%s", uri);
+			} else {
+				url = g_strdup_printf("%s%s", searchengine, uri);
+			}
+			regfree(&urlregex);
 		}
 		if (apath != uri)
 			free(apath);
