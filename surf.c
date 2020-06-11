@@ -982,50 +982,10 @@ void
 newwindow(Client *c, const Arg *a, int noembed)
 {
 	int i = 0;
-	char tmp[64];
 	const char *cmd[29], *uri;
 	const Arg arg = { .v = cmd };
 
-	cmd[i++] = argv0;
-	cmd[i++] = "-a";
-	cmd[i++] = curconfig[CookiePolicies].val.v;
-	cmd[i++] = curconfig[ScrollBars].val.i ? "-B" : "-b";
-	if (cookiefile && g_strcmp0(cookiefile, "")) {
-		cmd[i++] = "-c";
-		cmd[i++] = cookiefile;
-	}
-	if (stylefile && g_strcmp0(stylefile, "")) {
-		cmd[i++] = "-C";
-		cmd[i++] = stylefile;
-	}
-	cmd[i++] = curconfig[DiskCache].val.i ? "-D" : "-d";
-	if (embed && !noembed) {
-		cmd[i++] = "-e";
-		snprintf(tmp, LENGTH(tmp), "%lu", embed);
-		cmd[i++] = tmp;
-	}
-	cmd[i++] = curconfig[RunInFullscreen].val.i ? "-F" : "-f" ;
-	cmd[i++] = curconfig[Geolocation].val.i ?     "-G" : "-g" ;
-	cmd[i++] = curconfig[LoadImages].val.i ?      "-I" : "-i" ;
-	cmd[i++] = curconfig[KioskMode].val.i ?       "-K" : "-k" ;
-	cmd[i++] = curconfig[Style].val.i ?           "-M" : "-m" ;
-	cmd[i++] = curconfig[Inspector].val.i ?       "-N" : "-n" ;
-	cmd[i++] = curconfig[Plugins].val.i ?         "-P" : "-p" ;
-	if (scriptfile && g_strcmp0(scriptfile, "")) {
-		cmd[i++] = "-r";
-		cmd[i++] = scriptfile;
-	}
-	cmd[i++] = curconfig[JavaScript].val.i ? "-S" : "-s";
-	cmd[i++] = curconfig[StrictTLS].val.i ? "-T" : "-t";
-	if (fulluseragent && g_strcmp0(fulluseragent, "")) {
-		cmd[i++] = "-u";
-		cmd[i++] = fulluseragent;
-	}
-	if (showxid)
-		cmd[i++] = "-w";
-	cmd[i++] = curconfig[Certificate].val.i ? "-X" : "-x" ;
-	/* do not keep zoom level */
-	cmd[i++] = "--";
+	cmd[i++] = "xdg-open";
 	if ((uri = a->v))
 		cmd[i++] = uri;
 	cmd[i] = NULL;
