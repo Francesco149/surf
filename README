@@ -8,6 +8,8 @@ personal fork of surf with the following features
   > default config dir relocated to ~/.config/surf
   > non-urls are recognized and searched on duckduckgo
   > keeps track of all the url's you visit and shows them in the url menu ordered by frequency
+  > map MOD + SHIFT + U/Y to scroll horizontally
+  > remap MOD + U/D to page up/down
 
 
 surf - simple webkit-based browser
