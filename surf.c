@@ -1101,7 +1101,6 @@ newview(Client *c, WebKitWebView *rv)
 		   "allow-universal-access-from-file-urls", curconfig[FileURLsCrossAccess].val.i,
 		   "auto-load-images", curconfig[LoadImages].val.i,
 		   "default-charset", curconfig[DefaultCharset].val.v,
-		   "default-font-size", curconfig[FontSize].val.i,
 		   "enable-caret-browsing", curconfig[CaretBrowsing].val.i,
 		   "enable-developer-extras", curconfig[Inspector].val.i,
 		   "enable-dns-prefetching", curconfig[DNSPrefetch].val.i,
