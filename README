@@ -7,11 +7,11 @@ personal fork of surf with the following features
     wrap surf in a script that sends new windows to a specific tabbed instance. see the tsurf script
   > default config dir relocated to ~/.config/surf
   > non-urls are recognized and searched on duckduckgo
-  > keeps track of all the url's you visit and shows them in the url menu ordered by frequency
+  > keeps track of all the url's you visit and shows them in the url menu ordered by frequency.
+    works best with my dmenu fork https://github.com/Francesco149/dmenu
   > map MOD + SHIFT + U/Y to scroll horizontally
   > remap MOD + U/D to page up/down
   > copy/paste to/from clipboard, not primary selection
-
 
 surf - simple webkit-based browser
 ==================================
